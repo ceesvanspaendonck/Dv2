@@ -113,12 +113,13 @@ public class Helper extends GameObject
         {
             for (int j = 1; j < 14; j++)
             {
-                if(Spel.doolhof.grid[i][j].kortstePad == true)
+                //(oude method staat hier onder) maar mijn ingeving:
+                if(Spel.doolhof.grid[i][j].solverWaarde == solverWaardeVriend) //begin bij solverwaarde vriend
                 {
-                    if(Spel.doolhof.grid[(i - 1)][j].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1))
+                    if(Spel.doolhof.grid[(i - 1)][j].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1)) //als erboven gelijk is aan solverwaarde vriend - 1
                     {
-                        Spel.doolhof.grid[(i - 1)][j].kortstePad = true;
-                        Spel.doolhof.grid[(i - 1)][j].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                        Spel.doolhof.grid[(i - 1)][j].kortstePad = true; //dan wordt vakje erboven ook kortstePad
+                        Spel.doolhof.grid[(i - 1)][j].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde - 1; //en wordt het gelijk aan solverwaardevriend - 1
                         
                     }
                     else
@@ -128,7 +129,7 @@ public class Helper extends GameObject
                     if(Spel.doolhof.grid[(i + 1)][j].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1))
                     {
                         Spel.doolhof.grid[(i + 1)][j].kortstePad = true;
-                        Spel.doolhof.grid[(i + 1)][j].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                        Spel.doolhof.grid[(i + 1)][j].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde - 1;
                         
                     }
                     else
@@ -138,7 +139,7 @@ public class Helper extends GameObject
                     if(Spel.doolhof.grid[i][(j - 1)].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1))
                     {
                         Spel.doolhof.grid[i][(j - 1)].kortstePad = true;
-                        Spel.doolhof.grid[i][(j - 1)].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                        Spel.doolhof.grid[i][(j - 1)].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde - 1;
                     }
                     else
                     {
@@ -147,13 +148,54 @@ public class Helper extends GameObject
                     if(Spel.doolhof.grid[i][(j + 1)].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1))
                     {
                         Spel.doolhof.grid[i][(j + 1)].kortstePad = true;
-                        Spel.doolhof.grid[i][(j + 1)].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                        Spel.doolhof.grid[i][(j + 1)].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde - 1;
                     }
                     else
                     {
                         verandering = false;
                     }
                 }
+                /*if(Spel.doolhof.grid[i][j].kortstePad == true) 
+                {
+                    if(Spel.doolhof.grid[(i - 1)][j].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde + 1))
+                    {
+                        Spel.doolhof.grid[(i - 1)][j].kortstePad = true;
+                        Spel.doolhof.grid[(i - 1)][j].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                        
+                    }
+                    else
+                    {
+                        verandering = false;
+                    }
+                    if(Spel.doolhof.grid[(i + 1)][j].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde + 1))
+                    {
+                        Spel.doolhof.grid[(i + 1)][j].kortstePad = true;
+                        Spel.doolhof.grid[(i + 1)][j].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                        
+                    }
+                    else
+                    {
+                        verandering = false;
+                    }
+                    if(Spel.doolhof.grid[i][(j - 1)].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde + 1))
+                    {
+                        Spel.doolhof.grid[i][(j - 1)].kortstePad = true;
+                        Spel.doolhof.grid[i][(j - 1)].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                    }
+                    else
+                    {
+                        verandering = false;
+                    }
+                    if(Spel.doolhof.grid[i][(j + 1)].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde + 1))
+                    {
+                        Spel.doolhof.grid[i][(j + 1)].kortstePad = true;
+                        Spel.doolhof.grid[i][(j + 1)].solverWaarde = Spel.doolhof.grid[i][j].solverWaarde + 1;
+                    }
+                    else
+                    {
+                        verandering = false;
+                    }*/
+                
                 //dubbeleShow();
             }
         } 
