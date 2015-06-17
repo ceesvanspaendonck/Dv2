@@ -10,6 +10,7 @@ public class Pad extends GameObject
         this.x = x;
         this.y = y;
         this.kortstePad = false;
+        this.alGeweest = false;
     }
     
     @Override
