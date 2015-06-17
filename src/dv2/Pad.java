@@ -21,7 +21,10 @@ public class Pad extends GameObject
     @Override
     public void teken(Graphics g)
     {
+        
         g.setColor(Color.WHITE);
         g.fillRect(this.x*25, this.y*25, 22, 22);
+    
+        
     } 
 }

@@ -9,6 +9,7 @@ public class Vriend extends GameObject
     {
         this.x = x;
         this.y = y;
+        this.kortstePad = true;
     }
 
     public int getX() {
