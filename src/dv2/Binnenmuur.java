@@ -2,6 +2,7 @@ package dv2;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Binnenmuur extends GameObject
 {
@@ -17,11 +18,15 @@ public class Binnenmuur extends GameObject
         return "1";
     }
     
+    
     @Override
     public void teken(Graphics g)
     {
-        g.setColor(Color.RED);
+            g.setColor(Color.RED);
         g.fillRect(this.x*25, this.y*25, 22, 22);
+
+        
+      
         
     } 
 }

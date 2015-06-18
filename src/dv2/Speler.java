@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class Speler
 {
-    private int x, y;
+    public int x, y;
     private String lastDirection;
-    private boolean heeftBazooka;
+    public boolean heeftBazooka;
     private GameObject objectNorth, objectEast, objectSouth, objectWest, objectCurrent;
     
     public Speler(int x, int y)
@@ -41,6 +41,7 @@ public class Speler
                 Doolhof.setStappen(Doolhof.getStappen() + 1);
                 objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
                 checkCurrent(objectCurrent);
+                System.out.println(Doolhof.getStappen());
             }
             
 
@@ -95,12 +96,12 @@ public class Speler
     
     public void checkCurrent(GameObject objectCurrent) throws FileNotFoundException
     {
-        if(objectCurrent instanceof Bazooka)
-        {
-            System.out.println("Bazooka");
-            this.heeftBazooka = true;
-        }
-        if(objectCurrent instanceof Vijand)
+//        if(objectCurrent instanceof Bazooka)
+//        {
+//            System.out.println("Bazooka");
+//            this.heeftBazooka = true;
+//        }
+       if(objectCurrent instanceof Vijand)
         {
             System.out.println("Vijand!!!!");
             //Doolhof.setStappen(Doolhof.getStappen() + 10);
@@ -184,4 +185,24 @@ public class Speler
     }
     
 }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public  int getY() {
+        return y;
+    }
+
+    public void setHeeftBazooka(boolean heeftBazooka) {
+        this.heeftBazooka = heeftBazooka;
+    }
+
+    public  void setY(int y) {
+        this.y = y;
+    }
 }

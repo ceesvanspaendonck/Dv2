@@ -61,12 +61,24 @@ public class PressListener implements KeyListener
         {
             Doolhof.speler.schiet();
         }
+        if (key == KeyEvent.VK_E)
+        {
+            if(Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] instanceof Bazooka)
+            {
+                Pad pad = new Pad(Spel.doolhof.speler.y,Spel.doolhof.speler.x);
+                Spel.doolhof.speler.heeftBazooka = true;
+                Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] = pad;
+                System.out.println("Bazooka");
+
+
+            }
+        }
         if (key == KeyEvent.VK_R)
         {
             Spel.restart();
         }
+    
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         //throw new UnsupportedOperationException("Not supported yet.");

@@ -33,7 +33,7 @@ public class Spel extends JPanel
         
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        
-        stappen = new JLabel("Aantal stappen: " + Doolhof.stappen,SwingConstants.CENTER);
+        stappen = new JLabel("Aantal stappen: " + Doolhof.getStappen(),SwingConstants.CENTER);
         stappen.setPreferredSize(new Dimension(300, 100));
         stappen.setVisible(true);
         
