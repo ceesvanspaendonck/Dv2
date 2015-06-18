@@ -40,7 +40,6 @@ public class Pad extends GameObject
     @Override
     public void teken(Graphics g)
     {
-        System.out.println(i);
         if(this.kortstePad == true)
         {
             g.setColor(kleuren.get(i));

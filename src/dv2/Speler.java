@@ -9,7 +9,7 @@ public class Speler
 {
     public int x, y;
     private String lastDirection;
-    public boolean heeftBazooka;
+    public int ammo;
     private GameObject objectNorth, objectEast, objectSouth, objectWest, objectCurrent;
     
     public Speler(int x, int y)
@@ -17,9 +17,8 @@ public class Speler
         this.x = x;
         this.y = y;
         this.lastDirection = null;
-        this.heeftBazooka = false;
+        this.ammo = 0;
     }
-    
     
     public void teken(Graphics g)
     {
@@ -43,8 +42,6 @@ public class Speler
                 checkCurrent(objectCurrent);
                 System.out.println(Doolhof.getStappen());
             }
-            
-
         }
         else if(richting.equals("right"))
         {
@@ -59,8 +56,6 @@ public class Speler
                objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
                checkCurrent(objectCurrent);
             }
-            
-
         }
         else if(richting.equals("down"))
         {
@@ -75,8 +70,6 @@ public class Speler
                 objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
                 checkCurrent(objectCurrent);
             }
-            
-
         }
         else if(richting.equals("left"))
         {
@@ -88,45 +81,46 @@ public class Speler
                 this.x--;
                 Doolhof.setStappen(Doolhof.getStappen() + 1);
                 objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
-                checkCurrent(objectCurrent);
-            
+                checkCurrent(objectCurrent);          
             }
         }
     }
     
-    public void checkCurrent(GameObject objectCurrent) throws FileNotFoundException
+    public void checkCurrent(GameObject objectCurrent) throws FileNotFoundException, SQLException
     {
-//        if(objectCurrent instanceof Bazooka)
-//        {
-//            System.out.println("Bazooka");
-//            this.heeftBazooka = true;
-//        }
        if(objectCurrent instanceof Vijand)
         {
-            System.out.println("Vijand!!!!");
-            //Doolhof.setStappen(Doolhof.getStappen() + 10);
+            Doolhof.setStappen(Doolhof.getStappen() + 10);
         }
         if(objectCurrent instanceof Helper) //helper
         {
             Spel.doolhof.helper.solve();
-            //solver
         }
         if(objectCurrent instanceof Vriend)
         {
-            System.out.println("Vriend");
-            //Connectie.HighScoreOpslaan("hgffggh",Doolhof.stappen,Doolhof.level+1);
-            //Doolhof.setLevel(Doolhof.getLevel() + 1);
-            //Spel.restart();   
+            Connectie.HighScoreOpslaan("hgffggh", Doolhof.stappen, Doolhof.level+1);
+            Doolhof.setLevel(Doolhof.getLevel() + 1);
+            Spel.restart();   
         }
         if(objectCurrent instanceof Cheater)
         {
-            System.out.println("Cheator completor LOLS KUD FILMPJES YUTUBE LOVE MY LIFE LOVE MINEVTAFT FILMPJES IK BEN KUT LVVE KUT ZIJN");
+            Doolhof.setStappen(Doolhof.getStappen() - 10);
+        }
+    }
+    
+    public void pakBazooka()
+    {
+        if(Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] instanceof Bazooka)
+        {
+            Pad pad = new Pad(Spel.doolhof.speler.x,Spel.doolhof.speler.y);
+            Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] = pad;
+            Spel.doolhof.speler.ammo++;
         }
     }
     
     public void schiet()
     {
-        if(this.heeftBazooka == true)
+        if(ammo > 0)
         {
             if(lastDirection.equals("north"))
             {
@@ -136,6 +130,7 @@ public class Speler
                     {
                         Pad pad = new Pad(x, i);
                         Spel.doolhof.grid[i][x] = pad;
+                        ammo--;
                         break;                     
                     }
                 }
@@ -146,10 +141,9 @@ public class Speler
                 {
                     if(Spel.doolhof.grid[y][i] instanceof Binnenmuur)
                     {
-                        //System.out.print("muur gevonden onderweg naar links");
                         Pad pad = new Pad(i, y);
                         Spel.doolhof.grid[y][i] = pad;
-                        //System.out.println("\n\n");
+                        ammo--;
                         break;                     
                     }
                 }
@@ -162,47 +156,43 @@ public class Speler
                     {
                         Pad pad = new Pad(x, i);
                         Spel.doolhof.grid[i][x] = pad;
+                        ammo--;
                         break;                     
                     }
                 }
             }
             if(lastDirection.equals("west"))
             {
-                System.out.println("Speler(" + x + "," + y + ")");
                 for (int i = x; i > 0; i--)
                 {
                     if(Spel.doolhof.grid[y][i] instanceof Binnenmuur)
                     {
-                        //System.out.print("muur gevonden onderweg naar links");
                         Pad pad = new Pad(i, y);
                         Spel.doolhof.grid[y][i] = pad;
-                       // System.out.println("\n\n");
+                        ammo--;
                         break;                     
                     }
+                }
             }
-            heeftBazooka = true;
         }
     }
-    
-}
-
-    public int getX() {
+    public int getX()
+    {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(int x)
+    {
         this.x = x;
     }
 
-    public  int getY() {
+    public  int getY()
+    {
         return y;
     }
 
-    public void setHeeftBazooka(boolean heeftBazooka) {
-        this.heeftBazooka = heeftBazooka;
-    }
-
-    public  void setY(int y) {
+    public  void setY(int y)
+    {
         this.y = y;
     }
 }

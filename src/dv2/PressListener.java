@@ -63,15 +63,7 @@ public class PressListener implements KeyListener
         }
         if (key == KeyEvent.VK_E)
         {
-            if(Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] instanceof Bazooka)
-            {
-                Pad pad = new Pad(Spel.doolhof.speler.y,Spel.doolhof.speler.x);
-                Spel.doolhof.speler.heeftBazooka = true;
-                Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] = pad;
-                System.out.println("Bazooka");
-
-
-            }
+            Spel.doolhof.speler.pakBazooka();
         }
         if (key == KeyEvent.VK_R)
         {

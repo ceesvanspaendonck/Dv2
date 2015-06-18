@@ -20,18 +20,19 @@ public class Doolhof
     
     public void vormGrid() throws FileNotFoundException
     {
-       
-        java.io.File file = new java.io.File("C:\\Users\\max\\Documents\\NetBeansProjects\\Dv2\\src\\DoolhofTxt.txt");
-        //java.io.File file = new java.io.File("C:/Users/Sony/Documents/NetBeansProjects/Dv2/src/DoolhofTxt.txt");
+        java.io.File file = new java.io.File("Levels/DoolhofTxt.txt");
         
-        if (level == 1){
-             file = new java.io.File("C:\\Users\\max\\Desktop\\woo\\D\\src\\Doolhoftxt5.txt");
+        if (level == 1)
+        {
+             file = new java.io.File("Levels/Doolhoftxt.txt");
         }
-         if (level == 2){
-             file = new java.io.File("C:\\Users\\max\\Desktop\\woo\\D\\src\\Doolhoftxt.txt");
+         if (level == 2)
+        {
+             file = new java.io.File("Levels/Doolhoftxt2.txt");
         } 
-         if (level == 3){
-             file = new java.io.File("C:\\Users\\max\\Desktop\\woo\\D\\src\\Doolhoftxt4.txt");
+         if (level == 3)
+        {
+             file = new java.io.File("Levels/Doolhoftxt3.txt");
         }
 
         try
