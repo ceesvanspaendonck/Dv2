@@ -18,8 +18,13 @@ public class Binnenmuur extends GameObject
         return "1";
     }
     
+    public static void vernietigMuur(int y, int x)
+    {
+        Pad pad = new Pad(x, y);
+        Spel.doolhof.grid[y][x] = pad;
+        Spel.doolhof.speler.ammo--;
+    }
     
-    @Override
     public void teken(Graphics g)
     {
             g.setColor(Color.RED);

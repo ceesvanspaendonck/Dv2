@@ -1,13 +1,8 @@
 package dv2;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.io.FileNotFoundException;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class Spel extends JPanel
 {
@@ -22,9 +17,26 @@ public class Spel extends JPanel
         start();
     }
     
+    public static void startScherm()
+    {
+        frame = new JFrame();
+        frame.setVisible(true);
+        
+        JPanel panel = new JPanel();
+        
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JLabel welkom = new JLabel("Welkom bij BDE!", SwingConstants.CENTER);
+        welkom.setPreferredSize(new Dimension(300, 100));
+        welkom.setVisible(true);
+        frame.getContentPane().add(welkom, BorderLayout.NORTH);
+        frame.add(new JLabel(new ImageIcon("C:/Users/Sony/Pictures/sesamstraat/sesam.png")), BorderLayout.NORTH);
+        frame.setSize(400,600);
+        
+        frame.repaint();
+    }
+    
     public static void start() throws FileNotFoundException
     {
-        System.out.println("Start spel");
         doolhof = new Doolhof(0);       
         doolhof.vormGrid(); 
         

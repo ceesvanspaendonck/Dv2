@@ -128,9 +128,7 @@ public class Speler
                 {
                     if(Spel.doolhof.grid[i][x] instanceof Binnenmuur)
                     {
-                        Pad pad = new Pad(x, i);
-                        Spel.doolhof.grid[i][x] = pad;
-                        ammo--;
+                        Binnenmuur.vernietigMuur(i, x);
                         break;                     
                     }
                 }
@@ -141,9 +139,7 @@ public class Speler
                 {
                     if(Spel.doolhof.grid[y][i] instanceof Binnenmuur)
                     {
-                        Pad pad = new Pad(i, y);
-                        Spel.doolhof.grid[y][i] = pad;
-                        ammo--;
+                        Binnenmuur.vernietigMuur(y, i);
                         break;                     
                     }
                 }
@@ -154,22 +150,18 @@ public class Speler
                 {
                     if(Spel.doolhof.grid[i][x] instanceof Binnenmuur)
                     {
-                        Pad pad = new Pad(x, i);
-                        Spel.doolhof.grid[i][x] = pad;
-                        ammo--;
-                        break;                     
+                        Binnenmuur.vernietigMuur(i, x); 
+                        break;
                     }
                 }
             }
             if(lastDirection.equals("west"))
             {
-                for (int i = x; i > 0; i--)
+                for (int i = x; i >= 0; i--)
                 {
                     if(Spel.doolhof.grid[y][i] instanceof Binnenmuur)
                     {
-                        Pad pad = new Pad(i, y);
-                        Spel.doolhof.grid[y][i] = pad;
-                        ammo--;
+                        Binnenmuur.vernietigMuur(y, i);
                         break;                     
                     }
                 }

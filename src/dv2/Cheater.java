@@ -20,7 +20,7 @@ public class Cheater extends GameObject
     @Override
     public void teken(Graphics g)
     {
-        g.setColor(Color.DARK_GRAY);
+        g.setColor(Color.cyan);
         g.fillRect(this.x*25, this.y*25, 22, 22);
     } 
 }
