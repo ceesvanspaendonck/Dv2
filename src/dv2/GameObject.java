@@ -5,8 +5,7 @@ import java.awt.Graphics;
 public abstract class GameObject
 {
     public int x,y, solverWaarde;
-    public Boolean kortstePad;
-    
+    public Boolean kortstePad;    
     public static boolean alGeweest;
     
     

@@ -10,7 +10,6 @@ public class Pad extends GameObject
         this.x = x;
         this.y = y;
         this.kortstePad = false;
-        this.alGeweest = false;
     }
     
     @Override
@@ -22,10 +21,16 @@ public class Pad extends GameObject
     @Override
     public void teken(Graphics g)
     {
-        
-        g.setColor(Color.WHITE);
-        g.fillRect(this.x*25, this.y*25, 22, 22);
-    
+        if(this.kortstePad == false)
+        {
+            g.setColor(Color.WHITE);
+            g.fillRect(this.x*25, this.y*25, 22, 22);
+        }
+        else
+        {
+            g.setColor(Color.ORANGE);
+            g.fillRect(this.x*25, this.y*25, 5, 5);
+        }
         
     } 
 }
