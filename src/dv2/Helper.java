@@ -17,7 +17,7 @@ public class Helper extends GameObject
         this.y = y;
         this.looptDood = false;
         this.splitsing = false;
-        this.startRichting = "links";
+        this.startRichting = "boven";
     }
     
     public void solve() throws FileNotFoundException
@@ -106,343 +106,129 @@ public class Helper extends GameObject
         Spel.doolhof.grid[Spel.doolhof.vriend.y][Spel.doolhof.vriend.x].kortstePad = true; 
         Spel.doolhof.grid[Spel.doolhof.helper.y][Spel.doolhof.helper.x].kortstePad = false;
         looptDood = false;
-        for (int i = 0; i < 3000; i++)
-        {
-            checkOnderdeelRoute(solverWaardeVriend);
-        }
+        int x;
+        int y;
+        y = Spel.doolhof.vriend.y;
+        x = Spel.doolhof.vriend.x;
+        
+        checkOnderdeelRoute(x, y, solverWaardeVriend);
+        System.out.println("einde recu");
         dubbeleShow();
         
     }
     
-    public static void checkOnderdeelRoute(int solverWaardeVriend)
+    public static void checkOnderdeelRoute(int x, int y, int solverWaardeVriend)
     {
-        for (int i = 1; i < 14; i++)
+        if(Spel.doolhof.grid[y][x].kortstePad == true)
         {
-            for (int j = 1; j < 14; j++)
+            System.out.println("x(" + x + ") - y(" + y + ") is momenteel of gelijk aan een tegel waar kortstePad true is");
+            
+            if(bovenMogelijk(x, y) == true)
             {
-                if(looptDood == true)
+                if(rechtsMogelijk(x, y) == true || onderMogelijk(x, y) == true || linksMogelijk(x, y) == true)
                 {
-                    System.out.print("Vorige pad liep dood en er is een splitsing geweest, verander startrichting naar ");
-                    if(startRichting.equals("boven"))
-                    {
-                        startRichting = "rechts";
-                    }
-                    else if(startRichting.equals("rechts"))
-                    {
-                        startRichting = "onder";
-                    }
-                    else if(startRichting.equals("onder"))
-                    {
-                        startRichting = "links";
-                    }
-                    else if(startRichting.equals("links"))
-                    {
-                        startRichting = "boven";
-                    }
-                    System.out.println(startRichting + " - alle tegels alGeweest op false (nieuwe route wordt gevormd vanaf laatste splitsing)");
-                    i = splitsingX;
-                    j = splitsingY;
-                    looptDood = false;
-                    for (int k = 0; k < 15; k++)
-                    {
-                        for (int l = 0; l < 15; l++)
-                        {
-                            Spel.doolhof.grid[k][l].alGeweest = false;
-                        }
-                    }                    
+                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
+                    splitsing = true;
+                    splitsingX = x;
+                    splitsingY = y;
                 } 
-                
-                if(i == Spel.doolhof.vriend.y && j == Spel.doolhof.vriend.x || Spel.doolhof.grid[i][j].kortstePad == true && looptDood == false) //begin bij solverwaarde vriend maar ook elk ander vakje dat 20 heeft 
+                else
                 {
-                    System.out.println("i(" + i + ") & j(" + j + ")  == coordinaten vriend of i,j.kortstePad is true (op pad)");
-                    System.out.println("pad loopt tot nu toe niet dood - startRichting: " + startRichting);
-                    if(startRichting.equals("boven"))
-                    {
-                        if(bovenMogelijk(i, j) == true) //als erboven gelijk is aan solverwaarde vriend - 1
-                        {
-                            System.out.print("pad hierboven is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierboven wordt onderdeel van kortste route voor nu, looptdood = false");
-                            Spel.doolhof.grid[(i - 1)][j].kortstePad = true; //dan wordt vakje erboven ook kortstePad
-                            Spel.doolhof.grid[(i - 1)][j].alGeweest = true;
-                        }
-
-                        if(rechtsMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierrechts is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierrechts wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j + 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j + 1)].alGeweest = true;
-                        }
-
-                        if(onderMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hieronder is mogelijk - ");
-                            if(linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hieronder wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[(i + 1)][j].kortstePad = true;
-                            Spel.doolhof.grid[(i + 1)][j].alGeweest = true;
-                        }
-
-                        if(linksMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierlinks is mogelijk - ");
-                            if(bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true || onderMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierlinks wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j - 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j - 1)].alGeweest = true;
-                        }                        
-                        if(bovenMogelijk(i, j) == false && rechtsMogelijk(i, j) == false && onderMogelijk(i, j) == false && linksMogelijk(i, j) == false)
-                        {
-                            System.out.println("geen mogelijkheden. looptDood wordt true");
-                            looptDood = true;
-                        }
-                    }
-                    else if(startRichting.equals("rechts"))
-                    {
-                        if(rechtsMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierrechts is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierrechts wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j + 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j + 1)].alGeweest = true;
-                        }
-
-                        if(onderMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hieronder is mogelijk - ");
-                            if(linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hieronder wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[(i + 1)][j].kortstePad = true;
-                            Spel.doolhof.grid[(i + 1)][j].alGeweest = true;
-                        }
-
-                        if(linksMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierlinks is mogelijk - ");
-                            if(bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true || onderMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierlinks wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j - 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j - 1)].alGeweest = true;
-                        } 
-                        if(bovenMogelijk(i, j) == true) //als erboven gelijk is aan solverwaarde vriend - 1
-                        {
-                            System.out.print("pad hierboven is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierboven wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[(i - 1)][j].kortstePad = true; //dan wordt vakje erboven ook kortstePad
-                            Spel.doolhof.grid[(i - 1)][j].alGeweest = true;
-                        }
-                        if(bovenMogelijk(i, j) == false && rechtsMogelijk(i, j) == false && onderMogelijk(i, j) == false && linksMogelijk(i, j) == false)
-                        {
-                            System.out.println("geen mogelijkheden. looptDood wordt true");
-                            looptDood = true;
-                        }
-                    }
-                    else if(startRichting.equals("onder"))
-                    {
-                        if(onderMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hieronder is mogelijk - ");
-                            if(linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hieronder wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[(i + 1)][j].kortstePad = true;
-                            Spel.doolhof.grid[(i + 1)][j].alGeweest = true;
-                        }
-
-                        if(linksMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierlinks is mogelijk - ");
-                            if(bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true || onderMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierlinks wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j - 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j - 1)].alGeweest = true;
-                        } 
-
-                        if(bovenMogelijk(i, j) == true) //als erboven gelijk is aan solverwaarde vriend - 1
-                        {
-                            System.out.print("pad hierboven is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierboven wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[(i - 1)][j].kortstePad = true; //dan wordt vakje erboven ook kortstePad
-                            Spel.doolhof.grid[(i - 1)][j].alGeweest = true;
-                        }
-                        if(rechtsMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierrechts is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierrechts wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j + 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j + 1)].alGeweest = true;
-                        }
-                        if(bovenMogelijk(i, j) == false && rechtsMogelijk(i, j) == false && onderMogelijk(i, j) == false && linksMogelijk(i, j) == false)
-                        {
-                            System.out.println("geen mogelijkheden. looptDood wordt true");
-                            looptDood = true;
-                        }
-                    }
-                    else if(startRichting.equals("links"))
-                    {
-                        if(linksMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierlinks is mogelijk - ");
-                            if(bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true || onderMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierlinks wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j - 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j - 1)].alGeweest = true;
-                        } 
-                        if(bovenMogelijk(i, j) == true) //als erboven gelijk is aan solverwaarde vriend - 1
-                        {
-                            System.out.print("pad hierboven is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierboven wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[(i - 1)][j].kortstePad = true; //dan wordt vakje erboven ook kortstePad
-                            Spel.doolhof.grid[(i - 1)][j].alGeweest = true;
-                        }
-                        if(rechtsMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hierrechts is mogelijk - ");
-                            if(onderMogelijk(i, j) == true || linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hierrechts wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[i][(j + 1)].kortstePad = true;
-                            Spel.doolhof.grid[i][(j + 1)].alGeweest = true;
-                        }
-                        if(onderMogelijk(i, j) == true)
-                        {
-                            System.out.print("pad hieronder is mogelijk - ");
-                            if(linksMogelijk(i, j) == true || bovenMogelijk(i, j) == true || rechtsMogelijk(i, j) == true)
-                            {
-                                System.out.print("maar andere richting is ook mogelijk, dus hier is splitsing - ");
-                                splitsing = true;
-                                splitsingX = i;
-                                splitsingY = j;
-                            }
-                            looptDood = false;
-                            System.out.println("pad hieronder wordt onderdeel van kortste route voor nu");
-                            Spel.doolhof.grid[(i + 1)][j].kortstePad = true;
-                            Spel.doolhof.grid[(i + 1)][j].alGeweest = true;
-                        }
-                        if(bovenMogelijk(i, j) == false && rechtsMogelijk(i, j) == false && onderMogelijk(i, j) == false && linksMogelijk(i, j) == false)
-                        {
-                            System.out.println("geen mogelijkheden. looptDood wordt true");
-                            looptDood = true;
-                        }
-                    }
+                    splitsing = false;
                 }
+                System.out.println("vakje hierboven is mogelijke move");
+                bovenKortsteRoute(x, y);
+                y--;
+            }
+            else if(rechtsMogelijk(x, y) == true)
+            {
+                if(onderMogelijk(x, y) == true || linksMogelijk(x, y) == true || bovenMogelijk(x, y) == true)
+                {
+                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
+                    splitsing = true;
+                    splitsingX = x;
+                    splitsingY = y;
+                }
+                else
+                {
+                    splitsing = false;
+                }
+                System.out.println("vakje hierrechts is mogelijke move");
+                rechtsKortsteRoute(x, y);
+                x++;
+            }
+            else if(onderMogelijk(x, y) == true)
+            {
+                if(linksMogelijk(x, y) == true || bovenMogelijk(x, y) == true || rechtsMogelijk(x, y) == true)
+                {
+                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
+                    splitsing = true;
+                    splitsingX = x;
+                    splitsingY = y;
+                }
+                else
+                {
+                    splitsing = false;
+                }
+                System.out.println("vakje hieronder is mogelijke move");
+                onderKortsteRoute(x, y);
+                y++;
+            }
+            else if(linksMogelijk(x, y) == true)
+            {
+                if(bovenMogelijk(x, y) == true || rechtsMogelijk(x, y) == true || onderMogelijk(x, y) == true)
+                {
+                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
+                    splitsing = true;
+                    splitsingX = x;
+                    splitsingY = y;
+                }
+                else
+                {
+                    splitsing = false;
+                }
+                System.out.println("vakje hierlinks is mogelijke move");           
+                linksKortsteRoute(x, y);
+                x--;
+            }
+            else if(bovenMogelijk(x, y) == false && rechtsMogelijk(x, y) == false && onderMogelijk(x, y) == false && linksMogelijk(x, y) == false)
+            {
+                System.out.println("geen mogelijke moves");
             }
         }
+        System.out.println("\n x = " + x + ", y = " + y + " --- helperX = " + Spel.doolhof.helper.x + ", helperY = " + Spel.doolhof.helper.y + "\n");
+        
+        if(x == Spel.doolhof.helper.x && y == Spel.doolhof.helper.y)
+        {
+            System.out.println("klaar");         
+        }
+        else
+        {
+            checkOnderdeelRoute(x, y, solverWaardeVriend);
+        }
     }
     
-    public static boolean bovenMogelijk(int i, int j)
+    public static void bovenKortsteRoute(int x, int y)
     {
-        if(Spel.doolhof.grid[(i - 1)][j].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1) && Spel.doolhof.grid[(i - 1)][j].alGeweest == false) //als erboven gelijk is aan solverwaarde vriend - 1
+        Spel.doolhof.grid[(y - 1)][x].kortstePad = true;
+    }
+    
+    public static void rechtsKortsteRoute(int x, int y)
+    {
+        Spel.doolhof.grid[y][(x + 1)].kortstePad = true;
+    }
+    public static void onderKortsteRoute(int x, int y)
+    {
+        Spel.doolhof.grid[(y + 1)][x].kortstePad = true;
+    }
+    public static void linksKortsteRoute(int x, int y)
+    {
+        Spel.doolhof.grid[y][(x - 1)].kortstePad = true;
+    }
+    
+    public static boolean bovenMogelijk(int x, int y)
+    {
+        if(Spel.doolhof.grid[(y - 1)][x].solverWaarde == (Spel.doolhof.grid[y][x].solverWaarde - 1) && Spel.doolhof.grid[(y - 1)][x].alGeweest == false)
         {
             return true;
         }
@@ -452,9 +238,9 @@ public class Helper extends GameObject
         }
     }
     
-    public static boolean rechtsMogelijk(int i, int j)
+    public static boolean rechtsMogelijk(int x, int y)
     {
-        if(Spel.doolhof.grid[i][(j + 1)].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1) && Spel.doolhof.grid[i][(j + 1)].alGeweest == false) //als erboven gelijk is aan solverwaarde vriend - 1
+        if(Spel.doolhof.grid[y][(x + 1)].solverWaarde == (Spel.doolhof.grid[y][x].solverWaarde - 1) && Spel.doolhof.grid[y][(x + 1)].alGeweest == false)
         {
             return true;
         }
@@ -464,9 +250,9 @@ public class Helper extends GameObject
         }
     }
     
-    public static boolean onderMogelijk(int i, int j)
+    public static boolean onderMogelijk(int x, int y)
     {
-        if(Spel.doolhof.grid[(i + 1)][j].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1) && Spel.doolhof.grid[(i + 1)][j].alGeweest == false) //als erboven gelijk is aan solverwaarde vriend - 1
+        if(Spel.doolhof.grid[(y + 1)][x].solverWaarde == (Spel.doolhof.grid[y][x].solverWaarde - 1) && Spel.doolhof.grid[(y + 1)][x].alGeweest == false)
         {
             return true;
         }
@@ -476,9 +262,9 @@ public class Helper extends GameObject
         }
     }
     
-    public static boolean linksMogelijk(int i, int j)
+    public static boolean linksMogelijk(int x, int y)
     {
-        if(Spel.doolhof.grid[i][(j - 1)].solverWaarde == (Spel.doolhof.grid[i][j].solverWaarde - 1) && Spel.doolhof.grid[i][(j - 1)].alGeweest == false) //als erboven gelijk is aan solverwaarde vriend - 1
+        if(Spel.doolhof.grid[y][(x - 1)].solverWaarde == (Spel.doolhof.grid[y][x].solverWaarde - 1) && Spel.doolhof.grid[y][(x - 1)].alGeweest == false)
         {
             return true;
         }
