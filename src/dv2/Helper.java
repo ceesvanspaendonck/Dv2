@@ -121,83 +121,27 @@ public class Helper extends GameObject
     {
         if(Spel.doolhof.grid[y][x].kortstePad == true)
         {
-            System.out.println("x(" + x + ") - y(" + y + ") is momenteel of gelijk aan een tegel waar kortstePad true is");
-            
             if(bovenMogelijk(x, y) == true)
             {
-                if(rechtsMogelijk(x, y) == true || onderMogelijk(x, y) == true || linksMogelijk(x, y) == true)
-                {
-                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
-                    splitsing = true;
-                    splitsingX = x;
-                    splitsingY = y;
-                } 
-                else
-                {
-                    splitsing = false;
-                }
-                System.out.println("vakje hierboven is mogelijke move");
                 bovenKortsteRoute(x, y);
                 y--;
             }
             else if(rechtsMogelijk(x, y) == true)
             {
-                if(onderMogelijk(x, y) == true || linksMogelijk(x, y) == true || bovenMogelijk(x, y) == true)
-                {
-                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
-                    splitsing = true;
-                    splitsingX = x;
-                    splitsingY = y;
-                }
-                else
-                {
-                    splitsing = false;
-                }
-                System.out.println("vakje hierrechts is mogelijke move");
                 rechtsKortsteRoute(x, y);
                 x++;
             }
             else if(onderMogelijk(x, y) == true)
             {
-                if(linksMogelijk(x, y) == true || bovenMogelijk(x, y) == true || rechtsMogelijk(x, y) == true)
-                {
-                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
-                    splitsing = true;
-                    splitsingX = x;
-                    splitsingY = y;
-                }
-                else
-                {
-                    splitsing = false;
-                }
-                System.out.println("vakje hieronder is mogelijke move");
                 onderKortsteRoute(x, y);
                 y++;
             }
             else if(linksMogelijk(x, y) == true)
-            {
-                if(bovenMogelijk(x, y) == true || rechtsMogelijk(x, y) == true || onderMogelijk(x, y) == true)
-                {
-                    System.out.print(" maar andere richting is ook mogelijk, dus hier is splitsing");
-                    splitsing = true;
-                    splitsingX = x;
-                    splitsingY = y;
-                }
-                else
-                {
-                    splitsing = false;
-                }
-                System.out.println("vakje hierlinks is mogelijke move");           
+            {          
                 linksKortsteRoute(x, y);
                 x--;
             }
-            else if(bovenMogelijk(x, y) == false && rechtsMogelijk(x, y) == false && onderMogelijk(x, y) == false && linksMogelijk(x, y) == false)
-            {
-                System.out.println("geen mogelijke moves");
-            }
         }
-        System.out.println("\n x = " + x + ", y = " + y + " --- helperX = " + Spel.doolhof.helper.x + ", helperY = " + Spel.doolhof.helper.y + "\n");
-        
         if(x == Spel.doolhof.helper.x && y == Spel.doolhof.helper.y)
         {
             System.out.println("klaar");         
