@@ -103,7 +103,6 @@ public class Helper extends GameObject
         
         checkOnderdeelRoute(x, y, solverWaardeVriend);
         System.out.println("einde recu");
-        dubbeleShow();
         
     }
     
