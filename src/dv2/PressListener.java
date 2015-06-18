@@ -67,7 +67,11 @@ public class PressListener implements KeyListener
         }
         if (key == KeyEvent.VK_R)
         {
-            Spel.restart();
+            try {
+                Spel.restart();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(PressListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     
     }

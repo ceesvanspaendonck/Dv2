@@ -49,7 +49,6 @@ public class Connectie
                 id = statement.getInt("id");
                 score = statement.getInt("score");
                 naam = statement.getString("naam");
-                //in een scherm?
             }
         }
         catch (SQLException ex)
@@ -65,12 +64,9 @@ public class Connectie
         Connectie connection = new Connectie();
         
         String organiseerquery = "INSERT INTO Highscore (naam, score,level) VALUES (?, ?, ?)";
-        System.out.println("1");
         PreparedStatement statement = connectie.prepareStatement(organiseerquery);
-        System.out.println("2");
         statement.setString(1,naam);
         statement.setInt(2, score);
-        System.out.println("3");
         statement.setInt(3, level);
         int rows = statement.executeUpdate();
         if(rows != 1)

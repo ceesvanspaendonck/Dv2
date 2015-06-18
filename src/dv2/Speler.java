@@ -9,6 +9,7 @@ public class Speler
 {
     public int x, y;
     private String lastDirection;
+    public String naam;
     public int ammo;
     private GameObject objectNorth, objectEast, objectSouth, objectWest, objectCurrent;
     
@@ -37,10 +38,9 @@ public class Speler
             if(!(objectNorth instanceof Binnenmuur) && !(objectNorth instanceof Buitenmuur))
             {
                 this.y--;
-                Doolhof.setStappen(Doolhof.getStappen() + 1);
                 objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
                 checkCurrent(objectCurrent);
-                System.out.println(Doolhof.getStappen());
+                updateStappen();
             }
         }
         else if(richting.equals("right"))
@@ -52,9 +52,9 @@ public class Speler
             if(!(objectEast instanceof Binnenmuur) && !(objectEast instanceof Buitenmuur))
             {
                this.x++;
-               Doolhof.setStappen(Doolhof.getStappen() + 1);
                objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
                checkCurrent(objectCurrent);
+               updateStappen();
             }
         }
         else if(richting.equals("down"))
@@ -66,9 +66,9 @@ public class Speler
             if(!(objectSouth instanceof Binnenmuur) && !(objectSouth instanceof Buitenmuur))
             {
                 this.y++;
-                Doolhof.setStappen(Doolhof.getStappen() + 1);
                 objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
                 checkCurrent(objectCurrent);
+                updateStappen();
             }
         }
         else if(richting.equals("left"))
@@ -79,17 +79,24 @@ public class Speler
             if(!(objectWest instanceof Binnenmuur) && !(objectWest instanceof Buitenmuur))
             {     
                 this.x--;
-                Doolhof.setStappen(Doolhof.getStappen() + 1);
                 objectCurrent = Spel.getDoolhof().grid[this.y][this.x];
-                checkCurrent(objectCurrent);          
+                checkCurrent(objectCurrent);  
+                updateStappen();
             }
         }
+    }
+    
+    public void updateStappen()
+    {
+        Doolhof.setStappen(Doolhof.getStappen() + 1);
+        Spel.stappen.setText("Aantal stappen: " + Spel.doolhof.stappen);
     }
     
     public void checkCurrent(GameObject objectCurrent) throws FileNotFoundException, SQLException
     {
        if(objectCurrent instanceof Vijand)
         {
+            Spel.doolhof.vijand.verwijderObject();
             Doolhof.setStappen(Doolhof.getStappen() + 10);
         }
         if(objectCurrent instanceof Helper) //helper
@@ -98,13 +105,12 @@ public class Speler
         }
         if(objectCurrent instanceof Vriend)
         {
-            Connectie.HighScoreOpslaan("hgffggh", Doolhof.stappen, Doolhof.level+1);
-            Doolhof.setLevel(Doolhof.getLevel() + 1);
-            Spel.restart();   
+            Spel.doolhof.vriend.volgendLevel();
         }
         if(objectCurrent instanceof Cheater)
         {
-            Doolhof.setStappen(Doolhof.getStappen() - 10);
+            Spel.doolhof.cheater.verwijderObject();
+            Spel.doolhof.cheater.verlaagStappen();
         }
     }
     
@@ -112,8 +118,7 @@ public class Speler
     {
         if(Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] instanceof Bazooka)
         {
-            Pad pad = new Pad(Spel.doolhof.speler.x,Spel.doolhof.speler.y);
-            Spel.doolhof.grid[Spel.doolhof.speler.y][Spel.doolhof.speler.x] = pad;
+            Spel.doolhof.bazooka.verwijderObject();
             Spel.doolhof.speler.ammo++;
         }
     }

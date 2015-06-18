@@ -2,6 +2,8 @@ package dv2;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 public class Vriend extends GameObject
 {
@@ -10,6 +12,13 @@ public class Vriend extends GameObject
         this.x = x;
         this.y = y;
         this.kortstePad = true;
+    }
+    
+    public void volgendLevel() throws FileNotFoundException, SQLException
+    {
+        Connectie.HighScoreOpslaan(Spel.doolhof.speler.naam, Doolhof.stappen, Doolhof.level+1);
+        Spel.doolhof.level++;
+        Spel.restart();
     }
 
     public int getX() {
@@ -27,8 +36,6 @@ public class Vriend extends GameObject
     public void setY(int y) {
         this.y = y;
     }
-    
-    
     
     @Override
     public String toString()

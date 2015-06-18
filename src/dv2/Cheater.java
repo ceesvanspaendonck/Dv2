@@ -11,6 +11,11 @@ public class Cheater extends GameObject
         this.y = y;
     }
     
+    public void verlaagStappen()
+    {
+        Spel.doolhof.stappen = Spel.doolhof.stappen - 10; 
+    }
+    
     @Override
     public String toString()
     {

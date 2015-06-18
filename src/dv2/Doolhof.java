@@ -11,6 +11,9 @@ public class Doolhof
     static Speler speler;
     Helper helper;
     Vriend vriend;
+    Cheater cheater;
+    Bazooka bazooka;
+    Vijand vijand;
     public GameObject[][] grid = new GameObject[15][15];
     
     public Doolhof(int stappen)
@@ -20,17 +23,17 @@ public class Doolhof
     
     public void vormGrid() throws FileNotFoundException
     {
-        java.io.File file = new java.io.File("Levels/DoolhofTxt.txt");
+        java.io.File file = null;
         
-        if (level == 1)
+        if (level == 0)
         {
              file = new java.io.File("Levels/Doolhoftxt.txt");
         }
-         if (level == 2)
+        if (level == 1)
         {
              file = new java.io.File("Levels/Doolhoftxt2.txt");
         } 
-         if (level == 3)
+        if (level == 2)
         {
              file = new java.io.File("Levels/Doolhoftxt3.txt");
         }
@@ -68,7 +71,7 @@ public class Doolhof
                     }
                     if(getal == 4)
                     {
-                        Bazooka bazooka = new Bazooka(j, i);
+                        bazooka = new Bazooka(j, i);
                         grid[i][j] = bazooka;
                     }
                     if(getal == 5)
@@ -78,7 +81,7 @@ public class Doolhof
                     }
                     if (getal == 6)
                     {
-                        Cheater cheater = new Cheater(j, i);
+                        cheater = new Cheater(j, i);
                         grid[i][j] = cheater;
                     }
                     if (getal == 7)
@@ -88,7 +91,7 @@ public class Doolhof
                     }
                     if (getal == 8)
                     {
-                        Vijand vijand = new Vijand(j, i);
+                        vijand = new Vijand(j, i);
                         grid[i][j] = vijand;
                     }
                 }
