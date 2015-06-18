@@ -33,7 +33,7 @@ public class Spel extends JPanel
         final JPanel imagePanel = new JPanel();
         final JPanel panel = new JPanel();
         
-        JLabel image = new JLabel(new ImageIcon("C:/Users/Sony/Desktop/uitleg v2.png"));
+        JLabel image = new JLabel(new ImageIcon("/Images/uitleg v2.png"));
         imagePanel.add(image, BorderLayout.NORTH);
         
         final JButton buttonHighScore = new JButton("Highscores");
