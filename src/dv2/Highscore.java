@@ -3,8 +3,8 @@ package dv2;
 
 public class Highscore
 {
-    private int id, score, level;
-    private String naam;
+    public int id, score, level;
+    public String naam;
     public Highscore(int id, int score, int level, String naam)
     {
         this.id = id;

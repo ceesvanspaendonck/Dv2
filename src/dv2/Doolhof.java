@@ -16,9 +16,10 @@ public class Doolhof
     Vijand vijand;
     public GameObject[][] grid = new GameObject[15][15];
     
-    public Doolhof(int stappen)
+    public Doolhof(int stappen, int level)
     {
         this.stappen = stappen;
+        this.level = level - 1;
     }
     
     public void vormGrid() throws FileNotFoundException

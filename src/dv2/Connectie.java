@@ -57,6 +57,31 @@ public class Connectie
         }
     }
     
+    public static Highscore getHighScore()
+    {   
+        Connectie connection = new Connectie();
+        try
+        {        
+            String query = "SELECT * FROM Highscore ORDER BY score DESC;";
+            ResultSet statement = connection.fetchQuery(query);
+            
+            while(statement.next())
+            {
+                int id = statement.getInt("id");
+                int score = statement.getInt("score");
+                String naam = statement.getString("naam");
+                int level = statement.getInt("level");
+                Highscore highscore = new Highscore(id, score, level, naam);
+                return highscore;
+            }
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("SQL error. Check je internetverbinding.");
+        }
+        return null;
+    }
+    
     public static void HighScoreOpslaan(String naam , int score, int level) throws SQLException
     {
         Connection connectie = null;
