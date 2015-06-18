@@ -24,6 +24,7 @@ public class Spel extends JPanel
     
     public static void start() throws FileNotFoundException
     {
+        System.out.println("Start spel");
         doolhof = new Doolhof(0);       
         doolhof.vormGrid(); 
         

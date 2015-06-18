@@ -7,17 +7,10 @@ import java.io.FileNotFoundException;
 public class Helper extends GameObject
 {
     private static boolean verandering;
-    private static boolean looptDood;
-    private static boolean splitsing;
-    private static int splitsingX, splitsingY;
-    private static String startRichting;
     public Helper(int x, int y)
     {
         this.x = x;
         this.y = y;
-        this.looptDood = false;
-        this.splitsing = false;
-        this.startRichting = "boven";
     }
     
     public void solve() throws FileNotFoundException
@@ -32,8 +25,6 @@ public class Helper extends GameObject
         }
         Spel.doolhof.grid[y][x].solverWaarde = 0;
         Spel.doolhof.grid[y][x].kortstePad = true;
-        
-        //////////////////////////////////////////////alles is nu false & 1000, behalve locatie helper = 0 & true
         
         for (int i = 0; i < 1000; i++)
         {
@@ -105,7 +96,6 @@ public class Helper extends GameObject
         int solverWaardeVriend = Spel.doolhof.grid[Spel.doolhof.getVriendY()][Spel.doolhof.getVriendX()].solverWaarde;
         Spel.doolhof.grid[Spel.doolhof.vriend.y][Spel.doolhof.vriend.x].kortstePad = true; 
         Spel.doolhof.grid[Spel.doolhof.helper.y][Spel.doolhof.helper.x].kortstePad = false;
-        looptDood = false;
         int x;
         int y;
         y = Spel.doolhof.vriend.y;
