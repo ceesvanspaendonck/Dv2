@@ -44,13 +44,19 @@ public class SpelerTest {
      * Test of move method, of class Speler.
      */
     @Test
-    public void testMove() throws Exception {
+    public void testWallCheck() throws Exception {
         System.out.println("move");
-        String richting = "left";
-        Speler instance = new Speler(2,2);
-        instance.move("left");
-         int expResult = 1;
-         int result = instance.getX();
+        int i = 0;
+        
+        GameObject objectWest = new Binnenmuur(1,2);
+        
+        if(!(objectWest instanceof Binnenmuur) && !(objectWest instanceof Buitenmuur))
+            {     
+                i=1;
+            }
+        
+         int expResult = 0;
+         int result = i;
          assertEquals(expResult, result);
         
     }
