@@ -168,6 +168,6 @@ public class SpelerTest {
         }
         assertEquals(expResult, result); 
     }
-
+    //test
     
 }
