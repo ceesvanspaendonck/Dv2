@@ -38,11 +38,9 @@ public class Doolhof
         {
              file = new java.io.File("Levels/Doolhoftxt3.txt");
         }
-
         try
         {
             Scanner input = new Scanner(file);
-            
             for (int i = 0; i < 15; i++)
             {
                 for (int j = 0; j < 15; j++)

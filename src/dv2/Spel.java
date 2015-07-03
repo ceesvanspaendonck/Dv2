@@ -33,7 +33,7 @@ public class Spel extends JPanel
         final JPanel imagePanel = new JPanel();
         final JPanel panel = new JPanel();
         
-        JLabel image = new JLabel(new ImageIcon("/Images/uitleg v2.png"));
+        JLabel image = new JLabel(new ImageIcon("Images/uitleg v2.png"));
         imagePanel.add(image, BorderLayout.NORTH);
         
         final JButton buttonHighScore = new JButton("Highscores");
@@ -194,22 +194,16 @@ public class Spel extends JPanel
         
         Object columnNames[] = {"Naam", "Level", "Score"};
         Highscore highscore = Connectie.getHighScore();
-        Highscore highscore2 = Connectie.getHighScore();
-        Highscore highscore3 = Connectie.getHighScore();
-        Highscore highscore4 = Connectie.getHighScore();
-        Highscore highscore5 = Connectie.getHighScore();
         
         Object rowData[][] = {{ highscore.naam, highscore.level, highscore.score },
-                              { highscore2.naam, highscore2.level, highscore2.score},
-                              { highscore3.naam, highscore3.level, highscore3.score},
-                              { highscore4.naam, highscore4.level, highscore4.score},
-                              { highscore5.naam, highscore5.level, highscore5.score},
                               };
         
         JTable table = new JTable(rowData, columnNames);
 
         JScrollPane scrollPane = new JScrollPane(table);
         frame.add(scrollPane, BorderLayout.CENTER);
+        
+        frame.setVisible(true);
     }
     
     @Override
@@ -220,7 +214,15 @@ public class Spel extends JPanel
 
     public static Doolhof getDoolhof()
     {
-        return doolhof;
+        if(Spel.doolhof != null)
+        {
+            return Spel.doolhof;
+        }
+        else
+        {
+            System.out.println("Error");
+            return null;
+        }
     }
     
     

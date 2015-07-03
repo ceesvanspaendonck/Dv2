@@ -192,4 +192,9 @@ public class Speler
     {
         this.y = y;
     }
+    
+    public void setLastDirection(String direction)
+    {
+        this.lastDirection = direction;
+    }
 }

@@ -76,7 +76,7 @@ public class SpelerTest {
     }
     
     @Test
-    public void testSchiet() throws Exception
+    public void testSchiet12() throws Exception //1-2, geen ammo
     {
         Spel spel = new Spel();
         spel.start(1);
@@ -85,11 +85,88 @@ public class SpelerTest {
         instance.ammo = 0;
         instance.setLastDirection("east");
         instance.schiet();
-        GameObject expResult = new Binnenmuur(1,2);
-        GameObject result = new Binnenmuur(1,2);
-        assertEquals(expResult, result);
+        int expResult = 1;
+        int result;
+        if(Spel.doolhof.grid[1][2] instanceof Binnenmuur)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = 0;
+        }
+        assertEquals(expResult, result);      
+    }
+    
+    @Test
+    public void testSchiet1348() throws Exception
+    {
+        Spel spel = new Spel();
+        spel.start(1);
         
+        Speler instance = new Speler(1,1);
+        instance.ammo = 1;
+        instance.setLastDirection("east");
+        instance.schiet();       
+        int expResult = 0;
+        int result;
+        if(Spel.doolhof.grid[1][2] instanceof Binnenmuur)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = 0;
+        }
+        assertEquals(expResult, result); 
+    }
+    
+    
+    @Test
+    public void testSchiet135657() throws Exception
+    {
+        Spel spel = new Spel();
+        spel.start(1);
         
+        Speler instance = new Speler(1,13);
+        instance.ammo = 1;
+        instance.setLastDirection("east");
+        instance.schiet();       
+        int expResult = 0;
+        int result;
+        if(Spel.doolhof.grid[14][13] instanceof Binnenmuur)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = 0;
+        }
+        assertEquals(expResult, result); 
+    }
+    
+    
+    @Test
+    public void testSchiet135648() throws Exception
+    {
+        Spel spel = new Spel();
+        spel.start(1);
+        
+        Speler instance = new Speler(1,9);
+        instance.ammo = 1;
+        instance.setLastDirection("east");
+        instance.schiet();       
+        int expResult = 0;
+        int result;
+        if(Spel.doolhof.grid[9][6] instanceof Binnenmuur)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = 0;
+        }
+        assertEquals(expResult, result); 
     }
 
     
