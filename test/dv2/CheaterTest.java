@@ -53,10 +53,5 @@ public class CheaterTest {
          int result = Doolhof.getStappen();
          assertEquals(expResult, result);
     }
-
-    /**
-     * Test of teken method, of class Cheater.
-     */
-    
     
 }

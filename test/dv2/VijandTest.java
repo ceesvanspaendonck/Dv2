@@ -50,7 +50,7 @@ public class VijandTest {
     public void testverHoogstappen() {
         
         Vijand instance = new Vijand(2,2);
-        instance.verhoogStappen();
+        //instance.verhoogStappen();
         int expResult = 10;
          int result = Doolhof.getStappen();
          assertEquals(expResult, result);
